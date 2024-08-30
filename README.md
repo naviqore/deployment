@@ -82,7 +82,6 @@ For local development, you can use Docker Compose to deploy locally.
 Start the Services:
 
 ```bash
-cd docker
 docker compose up
 ```
 
