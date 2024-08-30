@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: public-transit-viewer
+spec:
+  type: {{ .Values.publicTransitViewer.service.type }}
+  ports:
+    - port: {{ .Values.publicTransitViewer.service.port }}
+      targetPort: {{ .Values.publicTransitViewer.service.port }}
+  selector:
+    app: public-transit-viewer

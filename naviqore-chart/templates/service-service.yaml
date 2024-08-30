@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: public-transit-service
+spec:
+  type: {{ .Values.publicTransitService.service.type }}
+  ports:
+    - port: {{ .Values.publicTransitService.service.port }}
+      targetPort: {{ .Values.publicTransitService.service.port }}
+  selector:
+    app: public-transit-service

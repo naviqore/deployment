@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: public-transit-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: public-transit-service
+  template:
+    metadata:
+      labels:
+        app: public-transit-service
+    spec:
+      containers:
+        - name: public-transit-service
+          image: "{{ .Values.publicTransitService.image.repository }}:{{ .Values.publicTransitService.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.publicTransitService.service.port }}
+          env:
+            - name: GTFS_STATIC_URI
+              value: "{{ .Values.publicTransitService.env.GTFS_STATIC_URI }}"
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.publicTransitService.service.port }}
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.publicTransitService.service.port }}
+            initialDelaySeconds: 30
+            periodSeconds: 30

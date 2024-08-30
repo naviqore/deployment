@@ -1,0 +1,10 @@
+Thank you for installing the Naviqore Chart!
+
+Your public-transit-service is deployed and accessible at:
+  http://<EXTERNAL-IP>:{{ .Values.publicTransitService.service.port }}
+
+Your public-transit-viewer is deployed and accessible at:
+  http://<EXTERNAL-IP>:{{ .Values.publicTransitViewer.service.port }}
+
+To get your service's external IP, use the following command:
+  kubectl get services -o wide

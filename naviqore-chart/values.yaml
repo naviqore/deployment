@@ -1,0 +1,19 @@
+publicTransitService:
+  image:
+    repository: ghcr.io/naviqore/public-transit-service
+    tag: v0.5.0
+  service:
+    type: ClusterIP
+    port: 8080
+  env:
+    GTFS_STATIC_URI: https://developers.google.com/static/transit/gtfs/examples/sample-feed.zip
+
+publicTransitViewer:
+  image:
+    repository: ghcr.io/naviqore/public-transit-viewer
+    tag: v0.5.0
+  service:
+    type: LoadBalancer # Change this to LoadBalancer or NodePort to expose it externally
+    port: 8501
+  env:
+    NAVIQORE_SERVICE_URL: http://public-transit-service:8080
