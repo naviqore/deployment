@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: public-transit-viewer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: public-transit-viewer
+  template:
+    metadata:
+      labels:
+        app: public-transit-viewer
+    spec:
+      containers:
+        - name: public-transit-viewer
+          image: "{{ .Values.publicTransitViewer.image.repository }}:{{ .Values.publicTransitViewer.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.publicTransitViewer.service.port }}
+          env:
+            {{- range $key, $value := .Values.publicTransitViewer.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+      initContainers:
+        - name: wait-for-public-transit-service
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z public-transit-service 8080; do echo waiting for public-transit-service; sleep 2; done;' ]
