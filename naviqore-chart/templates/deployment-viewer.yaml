@@ -18,8 +18,10 @@ spec:
           ports:
             - containerPort: {{ .Values.publicTransitViewer.service.port }}
           env:
-            - name: NAVIQORE_SERVICE_URL
-              value: "{{ .Values.publicTransitViewer.env.NAVIQORE_SERVICE_URL }}"
+            {{- range $key, $value := .Values.publicTransitViewer.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
       initContainers:
         - name: wait-for-public-transit-service
           image: busybox

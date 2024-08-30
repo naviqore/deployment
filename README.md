@@ -27,7 +27,21 @@ Alternatively, you can create a separate `override-values.yaml` file:
 ```yaml
 publicTransitService:
   env:
-    GTFS_STATIC_URI: https://your-new-gtfs-url.com/feed.zip
+    GTFS_STATIC_URI: "https://your-new-gtfs-url.com/feed.zip"
+    GTFS_STATIC_UPDATE_CRON: "0 0 4 * * *"
+    TRANSFER_TIME_SAME_STOP_DEFAULT: "120"
+    TRANSFER_TIME_BETWEEN_STOPS_MINIMUM: "-1"
+    TRANSFER_TIME_ACCESS_EGRESS: "15"
+    WALKING_SEARCH_RADIUS: "500"
+    WALKING_CALCULATOR_TYPE: "BEE_LINE_DISTANCE"
+    WALKING_SPEED: "1.4"
+    WALKING_DURATION_MINIMUM: "60"
+    RAPTOR_DAYS_TO_SCAN: "3"
+    RAPTOR_RANGE: "-1"
+    CACHE_SERVICE_DAY_SIZE: "5"
+    CACHE_EVICTION_STRATEGY: "LRU"
+    LOGGING_LEVEL_ROOT: "INFO"
+    MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "health,info,metrics"
 ```
 
 Then install or upgrade using this file:

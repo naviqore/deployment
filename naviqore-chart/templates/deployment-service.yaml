@@ -18,8 +18,10 @@ spec:
           ports:
             - containerPort: {{ .Values.publicTransitService.service.port }}
           env:
-            - name: GTFS_STATIC_URI
-              value: "{{ .Values.publicTransitService.env.GTFS_STATIC_URI }}"
+            {{- range $key, $value := .Values.publicTransitService.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
           livenessProbe:
             httpGet:
               path: /actuator/health
